@@ -36,7 +36,7 @@ const HandDrawnDivider = () => (
 );
 
 const SectionHeading: React.FC<{ title: string; subtitle: string; icon?: React.ReactNode }> = ({ title, subtitle, icon }) => (
-  <div className="text-center mb-16 relative z-10">
+  <div className="text-center mb-16 relative z-10 reveal">
     <div className="flex justify-center mb-3 text-algernon-teal animate-float drop-shadow-sm">
       {icon || <Flower size={24} />}
     </div>
@@ -124,7 +124,7 @@ const NavBar: React.FC = () => {
 // 1. Hero (Split Layout with Galaxy Animation)
 const HeroSection: React.FC = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative pt-28 pb-12 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto overflow-hidden">
+    <section className="min-h-[100dvh] flex items-center justify-center relative pt-28 pb-12 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto overflow-hidden">
       
       {/* Decorative center glow - Subtle & Wide */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-white/40 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
@@ -147,7 +147,7 @@ const HeroSection: React.FC = () => {
            </h2>
 
            {/* Awards */}
-           <div className="bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl p-4 inline-block text-left shadow-sm">
+           <div className="glass-edge bg-white/50 backdrop-blur-sm border border-white/60 rounded-xl p-4 inline-block text-left shadow-glass">
               <div className="flex items-start gap-2 text-algernon-coral font-bold text-sm mb-1">
                 <Trophy size={16} className="mt-0.5" />
                 <span>获奖经历</span>
@@ -364,7 +364,7 @@ const InternshipSection: React.FC = () => {
         {experiences.map((exp, idx) => {
           const isExpanded = expandedIndex === idx;
           return (
-            <div key={idx} className={`relative flex flex-col md:flex-row gap-8 mb-16 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''} group`}>
+            <div key={idx} style={{ ['--reveal-delay' as any]: `${idx * 90}ms` }} className={`reveal relative flex flex-col md:flex-row gap-8 mb-16 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''} group`}>
               
               {/* Timeline Node - Flower */}
               <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-9 h-9 bg-white/80 border-2 border-algernon-coral rounded-full flex items-center justify-center z-10 group-hover:scale-110 transition-transform duration-300 shadow-md backdrop-blur-sm">
@@ -372,7 +372,7 @@ const InternshipSection: React.FC = () => {
               </div>
 
               {/* Content Card */}
-              <div className="ml-12 md:ml-0 md:w-[45%] bg-white/60 backdrop-blur-md rounded-2xl shadow-glass hover:shadow-xl transition-all duration-300 border border-white/50 relative hover:-translate-y-1 overflow-hidden">
+              <div className="ml-12 md:ml-0 md:w-[45%] glass-edge bg-white/60 backdrop-blur-md rounded-2xl shadow-glass hover:shadow-xl transition-all duration-300 border border-white/50 relative hover:-translate-y-1 overflow-hidden">
                 <div className="p-6">
                   <span className="inline-block px-3 py-1 bg-white/50 rounded-full text-xs font-sans text-algernon-ink/70 mb-3 border border-white/20">
                     {exp.period}
@@ -664,9 +664,10 @@ const ProjectsSection: React.FC = () => {
       
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         {projects.map((proj, idx) => (
-          <div 
-            key={proj.id} 
-            className={`bg-white/80 backdrop-blur-md p-4 pb-8 rounded-sm shadow-polaroid transform transition-transform duration-500 hover:z-10 hover:scale-105 border border-white/40 ${idx % 2 === 0 ? '-rotate-1' : 'rotate-1'}`}
+          <div
+            key={proj.id}
+            style={{ ['--reveal-delay' as any]: `${idx * 110}ms` }}
+            className={`reveal bg-white/80 backdrop-blur-md p-4 pb-8 rounded-sm shadow-polaroid transform transition-transform duration-500 hover:z-10 hover:scale-105 hover:shadow-soft border border-white/40 ${idx % 2 === 0 ? '-rotate-1' : 'rotate-1'}`}
           >
             {/* Image/Video Placeholder or Actual Media */}
             <div className="w-full aspect-[4/3] bg-algernon-warm-gray/30 mb-6 overflow-hidden relative group border border-black/5">
@@ -854,11 +855,12 @@ const PortfolioSection: React.FC = () => {
       <SectionHeading title="AIGC作品" subtitle="Creation & Content" icon={<Lightbulb size={24}/>} />
 
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-        {items.map((item) => (
-          <div 
-            key={item.id} 
+        {items.map((item, idx) => (
+          <div
+            key={item.id}
             onClick={() => item.articleLinks ? setSelectedItem(item) : null}
-            className={`bg-white/70 backdrop-blur-md rounded-2xl overflow-hidden shadow-glass hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full border border-white/50 group ${item.articleLinks ? 'cursor-pointer' : ''}`}
+            style={{ ['--reveal-delay' as any]: `${idx * 110}ms` }}
+            className={`reveal glass-edge bg-white/70 backdrop-blur-md rounded-2xl overflow-hidden shadow-glass hover:-translate-y-2 hover:shadow-xl transition-all duration-300 flex flex-col h-full border border-white/50 group ${item.articleLinks ? 'cursor-pointer' : ''}`}
           >
             {/* Media Placeholder */}
             <div className="w-full aspect-video bg-white/20 relative flex items-center justify-center text-algernon-ink/30 overflow-hidden bg-black/5">
@@ -1073,10 +1075,11 @@ const ThoughtsSection: React.FC = () => {
 
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-8">
-          {bubbles.map((b) => (
+          {bubbles.map((b, idx) => (
             <div
               key={b.id}
-              className="bg-white/40 backdrop-blur-xl border border-white/60 rounded-2xl p-4 shadow-glass hover:shadow-xl transition-transform transform hover:-translate-y-1"
+              style={{ ['--reveal-delay' as any]: `${idx * 80}ms` }}
+              className="reveal glass-edge bg-white/40 backdrop-blur-xl border border-white/60 rounded-2xl p-5 shadow-glass hover:shadow-xl hover:-translate-y-1 transition-all transform"
             >
               <div className="font-serif font-bold text-algernon-ink text-sm mb-2">{b.title}</div>
               <p className="text-sm text-algernon-ink/80 leading-relaxed">{b.content}</p>
@@ -1109,6 +1112,27 @@ const Footer: React.FC = () => {
 // --- Main App ---
 
 const App: React.FC = () => {
+  // 滚动入场：进入视口的 .reveal 元素加 .in-view 触发动画
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    if (!els.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="w-full overflow-x-hidden selection:bg-algernon-coral/30">
       <div className="noise-overlay" />
