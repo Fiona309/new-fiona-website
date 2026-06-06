@@ -19,3 +19,4 @@ npm-debug.log*
 # large media (host externally, embed via iframe)
 public/*.mp4
 public/README.txt
+.vercel
