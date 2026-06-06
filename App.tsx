@@ -268,7 +268,7 @@ const InternshipSection: React.FC = () => {
 
   const experiences: Experience[] = [
     {
-      company: "阿里千问",
+      company: "阿里（千问APP）",
       role: "AI 产品经理实习生",
       period: "2026.01 - 2026.05",
       achievement: "千问TTS播报体验优化 & 新增音色矩阵建设",
