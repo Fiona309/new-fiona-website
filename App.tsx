@@ -609,7 +609,7 @@ const ProjectsSection: React.FC = () => {
       link: "https://my-tony-1snbp32bk-fionas-projects-b5534e52.vercel.app/",
       linkText: "体验产品 Demo",
       imageAlt: "做自己的 Tony - AI染发助手 Demo 演示",
-      localVideoUrl: "/做自己的tony-demo演示视频.mp4"
+      videoUrl: "https://player.bilibili.com/player.html?bvid=BV1SBEJ6XEAa"
     },
     {
       id: "P1",
