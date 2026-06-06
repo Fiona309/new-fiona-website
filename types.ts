@@ -10,6 +10,7 @@ export interface Project {
   imageAlt: string;
   imageUrl?: string;
   videoUrl?: string;
+  localVideoUrl?: string; // 本地视频文件（用 <video> 播放）
   images?: string[]; // 多张图片用于轮播
 }
 
@@ -27,6 +28,7 @@ export interface Experience {
       analysis?: string;
       strategy?: string;
       results?: string;
+      items?: { label: string; value: string }[]; // 自定义小标题条目
     }[];
     responsibilities?: string[];
   };

@@ -16,6 +16,7 @@ import {
   Trophy,
   ExternalLink,
   X,
+  Menu,
   FileText,
   ChevronDown,
   ChevronUp,
@@ -49,32 +50,73 @@ const SectionHeading: React.FC<{ title: string; subtitle: string; icon?: React.R
 
 // 0. Top Navigation
 const NavBar: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navItems = [
+    { id: 'internship', label: '实习经历' },
+    { id: 'projects', label: '项目竞赛' },
+    { id: 'portfolio', label: 'AIGC作品' },
+    { id: 'thoughts', label: '碎片思考' }
+  ];
+
   return (
-    <nav className="w-full flex justify-between items-center py-6 px-6 md:px-12 absolute top-0 left-0 z-50">
-      <div className="font-serif text-2xl font-bold text-algernon-teal flex items-center gap-2">
-        <Flower size={24} className="text-algernon-coral" />
-        <span>Fiona的个人主页</span>
+    <nav className="w-full py-5 md:py-6 px-5 md:px-12 absolute top-0 left-0 z-50">
+      <div className="flex justify-between items-center">
+        <div className="font-serif text-xl md:text-2xl font-bold text-algernon-teal flex items-center gap-2">
+          <Flower size={24} className="text-algernon-coral shrink-0" />
+          <span>Fiona的个人主页</span>
+        </div>
+
+        {/* Desktop links */}
+        <div className="hidden md:flex gap-10 font-sans font-medium text-algernon-ink/80">
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="hover:text-algernon-coral transition-colors relative group"
+            >
+              {item.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-algernon-coral group-hover:w-full transition-all duration-300"></span>
+            </a>
+          ))}
+        </div>
+        <a href="mailto:feiwanyan163@163.com" className="hidden md:inline-flex px-6 py-2.5 bg-algernon-teal text-white rounded-full text-sm font-bold shadow-md hover:shadow-lg hover:bg-opacity-90 transition-all items-center gap-2">
+          <Mail size={16} /> 联系我
+        </a>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? '关闭菜单' : '打开菜单'}
+          aria-expanded={menuOpen}
+          className="md:hidden p-2 -mr-2 text-algernon-ink/80 hover:text-algernon-coral transition-colors"
+        >
+          {menuOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
       </div>
-      <div className="hidden md:flex gap-10 font-sans font-medium text-algernon-ink/80">
-        {[
-          { id: 'internship', label: '实习经历' },
-          { id: 'projects', label: '项目竞赛' },
-          { id: 'portfolio', label: 'AIGC作品' },
-          { id: 'thoughts', label: '碎片思考' }
-        ].map((item) => (
-          <a 
-            key={item.id} 
-            href={`#${item.id}`} 
-            className="hover:text-algernon-coral transition-colors relative group"
+
+      {/* Mobile dropdown menu */}
+      {menuOpen && (
+        <div className="md:hidden mt-3 bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl shadow-glass p-4 flex flex-col gap-1 animate-fade-up">
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              onClick={() => setMenuOpen(false)}
+              className="py-3 px-3 rounded-xl font-sans font-medium text-algernon-ink/80 hover:bg-algernon-teal/10 hover:text-algernon-coral transition-colors"
+            >
+              {item.label}
+            </a>
+          ))}
+          <a
+            href="mailto:feiwanyan163@163.com"
+            onClick={() => setMenuOpen(false)}
+            className="mt-2 px-6 py-3 bg-algernon-teal text-white rounded-full text-sm font-bold shadow-md hover:bg-opacity-90 transition-all inline-flex items-center justify-center gap-2"
           >
-            {item.label}
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-algernon-coral group-hover:w-full transition-all duration-300"></span>
+            <Mail size={16} /> 联系我
           </a>
-        ))}
-      </div>
-      <a href="mailto:feiwanyan163@163.com" className="hidden md:inline-flex px-6 py-2.5 bg-algernon-teal text-white rounded-full text-sm font-bold shadow-md hover:shadow-lg hover:bg-opacity-90 transition-all items-center gap-2">
-        <Mail size={16} /> 联系我
-      </a>
+        </div>
+      )}
     </nav>
   );
 };
@@ -111,8 +153,8 @@ const HeroSection: React.FC = () => {
                 <span>获奖经历</span>
               </div>
               <ul className="text-sm text-algernon-ink/80 space-y-1 pl-6 list-disc marker:text-algernon-coral/50">
-                 <li>抖音 AI 黑客松 <span className="font-bold text-algernon-teal">三等奖</span></li>
-                 <li>腾讯产品经理大赛 <span className="font-bold text-algernon-teal">20强</span></li>
+                 <li>抖音黑客松26年长三角选拔赛 <span className="font-bold text-algernon-teal">冠军</span>（solo）</li>
+                 <li>抖音黑客松25年全国 <span className="font-bold text-algernon-teal">三等奖</span>（队长）</li>
               </ul>
            </div>
            
@@ -226,6 +268,33 @@ const InternshipSection: React.FC = () => {
 
   const experiences: Experience[] = [
     {
+      company: "阿里千问 (Qwen)",
+      role: "AI 产品经理实习生",
+      period: "2026.01 - 2026.05",
+      achievement: "千问TTS播报体验优化 & 新增音色矩阵建设",
+      highlight: "数据驱动 TTS 渗透率提升",
+      details: {
+        projects: [
+          {
+            title: "千问 TTS 播报体验优化",
+            items: [
+              { label: "完善数据指标建设", value: "以提升TTS渗透率为业务目标，针对当前数据看板无法分析用户语音使用偏好的问题，梳理缺失埋点并提需，健全数据看板建设，通过对用户的高/低播报率场景进行归因分析，为播报策略迭代提供数据支撑。" },
+              { label: "TTS 巡检流程设计", value: "针对当前巡检标准与用户体感差距大的问题，从产品侧重新制定巡检标准，并实现\"巡检发现问题-修复问题-检验已修问题-发现新问题\"的闭环巡检流程设计。" },
+              { label: "播报策略优化", value: "针对巡检发现和日常体验的TTS播报问题开展调研，从端侧策略、TN规则、TTS模型及工程链路侧提出优化需求并推进上线；推进声音克隆功能的上线与迭代，通过自定义语音的体验优化拉动TTS渗透。" }
+            ]
+          },
+          {
+            title: "千问新增音色矩阵建设",
+            items: [
+              { label: "竞品调研", value: "针对千问APP当前AI音色类型单一、质量差的问题，深度调研竞品豆包音色现状并跟踪新增音色动态，洞察出用户偏好的不同年龄、方言和语种、气质类型的音色分布。" },
+              { label: "策略规划", value: "结合千问用户画像，规划26年千问音色矩阵，在满足通用音色基础上，差异化侧重中老年用户偏好音色。" },
+              { label: "执行落地", value: "参与优质音色寻源与评测标准建立，推进音色评选、录制与模型训练，确保新增音色按规划上线。" }
+            ]
+          }
+        ]
+      }
+    },
+    {
       company: "百度 (Baidu)",
       role: "AI 策略产品经理实习生",
       period: "2025.03 - 2025.08",
@@ -285,7 +354,7 @@ const InternshipSection: React.FC = () => {
   ];
 
   return (
-    <section id="internship" className="py-24 px-6 relative overflow-hidden">
+    <section id="internship" className="py-16 md:py-24 px-5 sm:px-6 relative overflow-hidden">
       <SectionHeading title="实习经历" subtitle="Internship & Evolution" icon={<Sprout size={24}/>} />
       
       <div className="max-w-3xl mx-auto relative">
@@ -368,6 +437,12 @@ const InternshipSection: React.FC = () => {
                             <p className="text-sm text-algernon-ink/80 leading-relaxed">{project.results}</p>
                           </div>
                         )}
+                        {project.items && project.items.map((item, iIdx) => (
+                          <div key={iIdx}>
+                            <span className="text-xs font-bold text-algernon-teal uppercase tracking-wider block mb-1">{item.label}</span>
+                            <p className="text-sm text-algernon-ink/80 leading-relaxed">{item.value}</p>
+                          </div>
+                        ))}
                         {pIdx < exp.details.projects!.length - 1 && (
                           <div className="border-t border-algernon-teal/10 pt-4"></div>
                         )}
@@ -522,6 +597,21 @@ const ProjectsSection: React.FC = () => {
   
   const projects: Project[] = [
     {
+      id: "P0",
+      title: "做自己的 Tony",
+      tags: ["AI 染发", "Claude Vision", "黑客松冠军"],
+      award: "26年抖音黑客松长三角top高校选拔赛 - 冠军 (2026.05.24)",
+      description: "面向DIY染发爱好者的AI助手：仅需上传个人发色照片，即可判断能否染成博主发色、推荐染膏并跳转淘宝、计算调配比例、指导操作细节。",
+      details: [
+        { label: "需求分析", value: "作为染发爱好者，洞悉到DIY染发跟着博主教程容易翻车的痛点。该产品仅需上传个人发色照片，即可判断能否染成博主发色、推荐染膏并跳转淘宝、调配比例、操作细节指导等。" },
+        { label: "项目成果", value: "solo参加2026年抖音黑客松长三角top高校选拔赛，20小时内完成demo，获选拔赛冠军。" }
+      ],
+      link: "https://my-tony-1snbp32bk-fionas-projects-b5534e52.vercel.app/",
+      linkText: "体验产品 Demo",
+      imageAlt: "做自己的 Tony - AI染发助手 Demo 演示",
+      localVideoUrl: "/做自己的tony-demo演示视频.mp4"
+    },
+    {
       id: "P1",
       title: "聊聊简历（AI产品）",
       tags: ["AI 对话", "简历生成", "模拟面试"],
@@ -566,7 +656,7 @@ const ProjectsSection: React.FC = () => {
   ];
 
   return (
-    <section id="projects" className="py-24 px-6 relative">
+    <section id="projects" className="py-16 md:py-24 px-5 sm:px-6 relative">
       {/* Background tint for section */}
       <div className="absolute inset-0 bg-white/30 backdrop-blur-sm -z-20"></div>
 
@@ -580,7 +670,17 @@ const ProjectsSection: React.FC = () => {
           >
             {/* Image/Video Placeholder or Actual Media */}
             <div className="w-full aspect-[4/3] bg-algernon-warm-gray/30 mb-6 overflow-hidden relative group border border-black/5">
-                {proj.videoUrl ? (
+                {proj.localVideoUrl ? (
+                   <video
+                     src={proj.localVideoUrl}
+                     controls
+                     playsInline
+                     preload="metadata"
+                     className="w-full h-full object-cover bg-black"
+                   >
+                     您的浏览器不支持视频播放。
+                   </video>
+                ) : proj.videoUrl ? (
                    <iframe 
                      src={proj.videoUrl}
                      width="100%"
@@ -747,7 +847,7 @@ const PortfolioSection: React.FC = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-24 px-6 relative">
+    <section id="portfolio" className="py-16 md:py-24 px-5 sm:px-6 relative">
        {/* Background tint */}
        <div className="absolute inset-0 bg-algernon-canvas/30 backdrop-blur-sm -z-20"></div>
 
@@ -968,7 +1068,7 @@ const ThoughtsSection: React.FC = () => {
   ];
 
   return (
-    <section id="thoughts" className="py-24 px-6 relative">
+    <section id="thoughts" className="py-16 md:py-24 px-5 sm:px-6 relative">
       <SectionHeading title="碎片思考" subtitle="Mind Garden" icon={<BrainCircuit size={24} />} />
 
       <div className="max-w-5xl mx-auto">
