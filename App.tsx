@@ -240,7 +240,7 @@ const HeroSection: React.FC = () => {
                     {/* Fallback pattern */}
                     <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-algernon-teal to-transparent"></div>
                     <img 
-                      src="/photo.jpg" 
+                      src={`${import.meta.env.BASE_URL}photo.jpg`}
                       alt="Fei Wanyan" 
                       className="w-full h-full object-cover scale-110 translate-y-2 group-hover:scale-115 transition-transform duration-700" 
                     />
@@ -643,14 +643,14 @@ const ProjectsSection: React.FC = () => {
       linkText: "体验 Coze Agent",
       imageAlt: "小鹅记账 UI 界面",
       images: [
-        "/轮播1.PNG",
-        "/轮播2.PNG",
-        "/轮播3.png",
-        "/轮播4.png",
-        "/轮播5.png",
-        "/轮播6.png",
-        "/轮播7.png",
-        "/轮播8.png"
+        `${import.meta.env.BASE_URL}轮播1.PNG`,
+        `${import.meta.env.BASE_URL}轮播2.PNG`,
+        `${import.meta.env.BASE_URL}轮播3.png`,
+        `${import.meta.env.BASE_URL}轮播4.png`,
+        `${import.meta.env.BASE_URL}轮播5.png`,
+        `${import.meta.env.BASE_URL}轮播6.png`,
+        `${import.meta.env.BASE_URL}轮播7.png`,
+        `${import.meta.env.BASE_URL}轮播8.png`
       ]
     }
   ];
@@ -809,7 +809,7 @@ const PortfolioSection: React.FC = () => {
       description: "联合创始人，负责选题策划与写作编辑，专注于社会学理论科普。",
       placeholderType: "IMAGE",
       // Removed ./ prefix
-      imageUrl: "/social_theory.png.jpg",
+      imageUrl: `${import.meta.env.BASE_URL}social_theory.png.jpg`,
       articleLinks: [
         { title: "《为什么知识分子都不怎么爱国？》", url: "https://mp.weixin.qq.com/s/3XrUf1kATNslZjh1rZ-VlA" },
         { title: "《香港高楼火灾：生死十分钟，人们到底在做什么？》", url: "https://mp.weixin.qq.com/s/ZxnaNSX11FBvlVuhGrxwfw" },

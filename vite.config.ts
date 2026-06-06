@@ -5,6 +5,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
+      // GitHub Pages 项目站点子路径（仓库名）。本地 dev 仍从根路径访问。
+      base: mode === 'production' ? '/new-fiona-website/' : '/',
       server: {
         port: 3000,
         host: '0.0.0.0',
